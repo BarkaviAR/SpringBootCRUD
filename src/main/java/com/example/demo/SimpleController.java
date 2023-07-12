@@ -125,6 +125,28 @@ public class SimpleController {
 		
 		
 		Map<Integer,Map<String, String>> Emps = new HashMap<>();
+		System.out.println("step1:"+ Emps);
+		
+		DBInteraction db = new DBInteraction();
+		ResultSet rsc = db.Retrieve("select * from employee");
+		int counter=0;
+		try {
+			while (rsc.next()) {
+				Map<String, String> emp = new HashMap<>();
+				//System.out.println("step2:"+ emp);
+				emp.put("first", rsc.getString("first"));
+		        emp.put("last", rsc.getString("last"));
+		        emp.put("age", rsc.getString("age"));
+		        System.out.println("current record:"+ emp);
+		        Emps.put(counter, emp);
+		        System.out.println("current collection:"+ Emps);
+		        counter++;
+			}
+			rsc.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		db.closeConn();
 		
 		/*
 		 *  | string     |  string   |    
@@ -135,21 +157,29 @@ public class SimpleController {
 		 */
 		//Create collection obejct - data
 		Map<String, String> emp = new HashMap<>();
+		System.out.println("step2:"+ emp);
 		//Fill java Collection named data
 		emp.put("first", "luke");
         emp.put("last", "duke");
         emp.put("age","5");
+        System.out.println("step3:"+ emp);
+    
+        System.out.println("step4:"+ Emps);
+	    Emps.put(1, emp);
+        System.out.println("step4:"+ Emps);
 		
         
-        Emps.put(1, emp);
-        
         Map<String, String> emp2  = new HashMap<>();
+        System.out.println("step5:"+ emp2);
 		//Fill java Collection named data
 		emp2.put("first", "tara");
         emp2.put("last", "p");
         emp2.put("age","4");
+        System.out.println("step6:"+ emp2);
         
+        System.out.println("step7:"+ Emps);
         Emps.put(2, emp2);
+        System.out.println("step8:"+ Emps);
         
         //return it
         return new ResponseEntity<>(Emps, HttpStatus.OK);
