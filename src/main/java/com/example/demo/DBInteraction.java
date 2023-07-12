@@ -106,6 +106,16 @@ public class DBInteraction {
 	      } 
 	}
 	
+	public void closeConn() {
+		try {
+			if(!this.conn.isClosed()) {
+			this.conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private static void testmysql() {
 		String sqlSelectAllPersons = "SELECT * FROM employee";
 		String connectionUrl = "jdbc:mysql://localhost:3306/shipcarte?serverTimezone=UTC";
