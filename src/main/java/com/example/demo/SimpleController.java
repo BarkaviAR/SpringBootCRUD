@@ -82,6 +82,11 @@ public class SimpleController {
 	}
 	
 
+	/***
+	 * https://howtodoinjava.com/spring-mvc/controller-getmapping-postmapping/
+	 * @param newEmployee
+	 * @return
+	 */
 	@PostMapping("/createEmp/")
 	public ResponseEntity<Object> createEmployee(@RequestBody Employee newEmployee){
 		Map<Integer, Map<String, String>> Emps = new HashMap<>();
