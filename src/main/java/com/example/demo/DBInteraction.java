@@ -106,49 +106,7 @@ public class DBInteraction {
 	      } 
 	}
 	
-
-	private static void h2DB() {
-
-//		String jdbcURL = "jdbc:h2:mem:dcbapp";
-//
-//		Connection connection = DriverManager.getConnection(jdbcURL);
-//
-//		System.out.println("Connected to H2 in-memory database.");
-//
-//		String sql = "select * from EMPLOYEE";
-//
-//		// "Create table students (ID int primary key, name varchar(50))";
-//
-//		Statement statement = connection.createStatement();
-//
-//		// ResultSet rs = statement.executeQuery(sql);
-//
-//		try {
-//			ResultSet rs = statement.executeQuery(sql);
-//			List<String[]> list = new ArrayList<>();
-//			while (rs.next()) {
-//
-//				System.out.println(rs.getString("first") + " " + rs.getString("last"));
-//
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-
-		// System.out.println("Created table students.");
-
-//		sql = "Insert into students (ID, name) values (1, 'Nam Ha Minh')";
-//
-//		int rows = statement.executeUpdate(sql);
-//
-//		if (rows > 0) {
-//			System.out.println("Inserted a new row.");
-//		}
-
-		// connection.close();
-	}
-
-	private static void mysql() {
+	private static void testmysql() {
 		String sqlSelectAllPersons = "SELECT * FROM employee";
 		String connectionUrl = "jdbc:mysql://localhost:3306/shipcarte?serverTimezone=UTC";
 
@@ -168,23 +126,6 @@ public class DBInteraction {
 	}
 
 	public static void main(String[] args) throws SQLException {
-
-		String sqlSelectAllPersons = "SELECT * FROM employee";
-		String connectionUrl = "jdbc:mysql://localhost:3306/shipcarte?serverTimezone=UTC";
-
-		try (Connection conn = DriverManager.getConnection(connectionUrl, "root", "pass");
-				PreparedStatement ps = conn.prepareStatement(sqlSelectAllPersons);
-				ResultSet rs = ps.executeQuery()) {
-
-			while (rs.next()) {
-				String name = rs.getString("first");
-				String lastName = rs.getString("last");
-				System.out.println(name + " " + lastName);
-				// do something with the extracted data...
-			}
-		} catch (SQLException e) {
-			// handle the exception
-		}
-
+		testmysql();
 	}
 }
