@@ -23,102 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class SimpleController {
 
-	@GetMapping("/single/")
-	public String helloWorld() {
-		System.out.println("Going to print Hello World");
-		return "helloWorld";
-
-	}
-
-	@GetMapping("/getAge/")
-	public int helloTara() {
-		return 3;
-
-	}
-
-	@GetMapping("/centersByName/")
-	public LocalDateTime helloTarak() {
-		return java.time.LocalDateTime.now();
-
-	}
-
-	@GetMapping("/float/")
-	public float helloTaras() {
-		Float f1 = new Float(34);
-		return f1;
-
-	}
-
-	@GetMapping("/double/")
-	public double helloTarask() {
-		double d1 = 12.3;
-		return d1;
-
-	}
-
-	@GetMapping("/boolean/")
-	public boolean helloT() {
-		boolean one = false;
-		return one;
-
-	}
-
-	@GetMapping("/byte/")
-	public byte helloTa() {
-		byte a = 20;
-		byte b = -1;
-		if (b < a) {
-			return b;
-		} else {
-			return a;
-		}
-
-	}
-
-	@GetMapping("/Long Data/")
-	public Object helloTar(@RequestParam int b) {
-		long a = 100000L;
-		if (b > 0) {
-			return a;
-		} else {
-			return 8;
-		}
-
-	}
-
-	@GetMapping("/char/")
-	public char helloTaraB() {
-		char A = 'A';
-		return A;
-
-	}
-
-	@GetMapping("/CRUD/")
-	public String CRUD() {
-		String name = "";
-		String lastName = "";
-
-		DBInteraction db = new DBInteraction();
-
-		db.Create(
-				"insert into employee (first, last, age, address, city, state) values ('ashkon', 'b', 7, '78 rat Nest','Hazard', 'ajax');");
-		db.Update("UPDATE employee SET age = 60 WHERE first in ('gt')");
-		ResultSet rsc = db.Retrieve("select * from employee");
-		try {
-			while (rsc.next()) {
-				name = rsc.getString("first");
-				lastName = rsc.getString("last");
-				System.out.println(name + " " + lastName);
-				// do something with the extracted data...
-			}
-			rsc.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		db.closeConn();
-		return name + " " + lastName;
-	}
 
 	/**
 	 * http://www.masterspringboot.com/web/rest-services/how-to-return-json-objects-as-response-in-spring-boot/
@@ -168,9 +72,6 @@ public class SimpleController {
 			@PathVariable String fn, 
 			@RequestBody Employee emp) {
 		
-		//System.out.println(emp.address);
-		//System.out.println(fn + age);
-		//"UPDATE employee SET age = 60 WHERE first in ('gt')"
 		
 		DBInteraction db = new DBInteraction();
 		String usql = String.format("UPDATE employee SET age = %s WHERE first in ('%s')",emp.age.toString(),fn);
@@ -179,6 +80,8 @@ public class SimpleController {
 		
 		return result;
 	}
+	
+
 	@PostMapping("/createEmp/")
 	public ResponseEntity<Object> createEmployee(@RequestBody Employee newEmployee){
 		Map<Integer, Map<String, String>> Emps = new HashMap<>();
@@ -220,37 +123,4 @@ public class SimpleController {
 		return new ResponseEntity<>(Emps, HttpStatus.OK);
 	}
 
-	@GetMapping("/student/")
-	public String getStudent() {
-		// https://www.baeldung.com/jackson-object-mapper-tutorial
-		studentDatabase A = new studentDatabase();
-		A.name = "Raj";
-		A.age = 5;
-		A.DOB = new Date();
-
-		ObjectMapper mapper = new ObjectMapper();
-		String jsonString = "";
-		try {
-			jsonString = mapper.writeValueAsString(A);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// https://www.freecodecamp.org/news/what-is-the-correct-content-type-for-json-request-header-mime-type-explained/
-		// TODO: return json instead of string
-		return jsonString;
-
-	}
 }
-
-//@Controller
-//public class SimpleController {
-//    @Value("${spring.application.name}")
-//    String appName;
-//
-//    @GetMapping("/")
-//    public String homePage(Model model) {
-//        model.addAttribute("appName", appName);
-//        return "home";
-//    }
-//}
